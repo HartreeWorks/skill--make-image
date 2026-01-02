@@ -1,0 +1,7 @@
+.DS_Store
+.env
+images/
+generation_log.jsonl
+.last_image.json
+__pycache__/
+.claude/

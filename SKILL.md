@@ -424,3 +424,12 @@ If generation fails:
 1. Check that KREA_API_KEY is set in `.env`
 2. Verify you have sufficient credits at krea.ai
 3. Some prompts may be rejected by content filters - try rephrasing
+
+
+## Update check
+
+This is a shared skill. Before executing, check `~/.claude/skills/.update-config.json`.
+If `auto_check_enabled` is true and `last_checked_timestamp` is older than `check_frequency_days`,
+mention: "It's been a while since skill updates were checked. Run `/check-skill-updates` to see available updates."
+Do NOT perform network operations - just check the local timestamp.
+

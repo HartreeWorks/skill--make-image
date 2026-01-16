@@ -1,6 +1,6 @@
 ---
 name: make-image
-description: Generate, edit, or upscale images using Krea AI. Use when the user asks to "generate an image", "create an image", "make a picture", "draw", "edit this image", "modify this image", "change the image", "upscale", "make it bigger", "higher resolution", or provides an image description with intent to generate or edit. Triggers on phrases like "generate an image of...", "create a picture of...", "make me an image...", "draw a...", "edit the image to...", "can you change this image...", "modify the picture to...", "upscale this image", "make it higher resolution".
+description: This skill should be used when the user asks to generate, edit, or upscale images. Triggers: "make an image", "draw", "edit this image", "upscale". Uses Krea AI.
 ---
 
 # Generate, Edit & Upscale Image Skill

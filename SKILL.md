@@ -424,9 +424,3 @@ If generation fails:
 1. Check that KREA_API_KEY is set in `.env`
 2. Verify you have sufficient credits at krea.ai
 3. Some prompts may be rejected by content filters - try rephrasing
-
-
-## Update check
-
-This skill is managed by [skills.sh](https://skills.sh). To check for updates, run `npx skills update`.
-

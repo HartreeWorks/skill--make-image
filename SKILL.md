@@ -1,6 +1,6 @@
 ---
 name: make-image
-description: This skill should be used when the user asks to generate, edit, or upscale images. Triggers: "make an image", "draw", "edit this image", "upscale". Uses Krea AI.
+description: 'This skill should be used when the user asks to generate, edit, or upscale images. Triggers: "make an image", "draw", "edit this image", "upscale". Uses Krea AI.'
 ---
 
 # Generate, Edit & Upscale Image Skill

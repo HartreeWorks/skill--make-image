@@ -515,13 +515,13 @@ def upscale_image(
     target_width = min(source_width * scale_factor, 22000)  # Cap at 22K (Topaz max)
     target_height = min(source_height * scale_factor, 22000)
 
+    # API expects width/height as the desired OUTPUT dimensions.
+    # Do NOT send upscaling_activated or image_scaling_factor — they cause job failures.
     payload = {
         "image_url": image_url,
         "width": target_width,
         "height": target_height,
         "model": model,
-        "upscaling_activated": True,
-        "image_scaling_factor": scale_factor,
         "output_format": output_format,
         "sharpen": sharpen,
         "denoise": denoise,
@@ -535,7 +535,7 @@ def upscale_image(
 
     print(f"Upscaling image with Topaz {model} ({scale_factor}x)...")
     print(f"Source: {image_url[:60]}...")
-    print(f"Target dimensions: {target_width}x{target_height}")
+    print(f"Output dimensions: {target_width}x{target_height}")
 
     # Submit job
     response = requests.post(TOPAZ_URL, headers=headers, json=payload, timeout=30)

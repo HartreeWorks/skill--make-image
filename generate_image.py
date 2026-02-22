@@ -1047,6 +1047,8 @@ def main():
     # Handle upscale mode (separate from generate/edit)
     if args.upscale:
         try:
+            source_width = None
+            source_height = None
             if args.upscale == "last":
                 last_info = get_last_image_info()
                 if not last_info:
@@ -1055,6 +1057,18 @@ def main():
                 upscale_url = last_info.get("krea_url")
                 print(f"Upscaling last image: {last_info.get('local_path', 'unknown')}")
             else:
+                # Read dimensions from local file before uploading
+                if is_local_file(args.upscale):
+                    try:
+                        from PIL import Image as PILImage
+                        with PILImage.open(args.upscale) as img:
+                            source_width, source_height = img.size
+                            print(f"Source dimensions: {source_width}x{source_height}")
+                    except ImportError:
+                        print("Warning: Pillow not installed, cannot detect image dimensions. Install with: pip install Pillow")
+                    except Exception as e:
+                        print(f"Warning: Could not read image dimensions: {e}")
+
                 # Resolve path to URL (uploads local files to FTP if needed)
                 upscale_url = resolve_image_url(args.upscale)
                 if is_local_file(args.upscale):
@@ -1081,6 +1095,8 @@ def main():
                         denoise=settings["denoise"],
                         fix_compression=settings["fix_compression"],
                         face_enhancement=settings["face_enhancement"],
+                        source_width=source_width,
+                        source_height=source_height,
                     )
                 else:
                     output_path, output_folder, krea_url = upscale_bloom(
@@ -1089,6 +1105,8 @@ def main():
                         creativity=settings["creativity"],
                         face_preservation=settings["face_preservation"],
                         color_preservation=settings["color_preservation"],
+                        source_width=source_width,
+                        source_height=source_height,
                     )
             # Direct engine selection
             elif args.engine == "bloom":
@@ -1099,6 +1117,8 @@ def main():
                     face_preservation=args.face_preservation,
                     color_preservation=args.color_preservation,
                     prompt=args.upscale_prompt,
+                    source_width=source_width,
+                    source_height=source_height,
                 )
             # Default: Topaz
             else:
@@ -1110,6 +1130,8 @@ def main():
                     denoise=args.denoise,
                     fix_compression=args.fix_compression,
                     face_enhancement=args.face_enhancement,
+                    source_width=source_width,
+                    source_height=source_height,
                 )
 
             cost = BLOOM_COST if args.engine == "bloom" else TOPAZ_COST

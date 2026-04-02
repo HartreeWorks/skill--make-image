@@ -5,3 +5,6 @@ generation_log.jsonl
 .last_image.json
 __pycache__/
 .claude/
+
+# Private local data (not published)
+data/
